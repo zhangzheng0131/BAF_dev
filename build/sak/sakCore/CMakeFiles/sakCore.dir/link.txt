@@ -1,0 +1,2 @@
+/bin/ar cr ../../bin/libsakCore.a  CMakeFiles/sakCore.dir/src/rect_core.cpp.o
+/bin/ranlib ../../bin/libsakCore.a

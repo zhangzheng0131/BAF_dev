@@ -1,0 +1,2 @@
+/bin/ar cr ../../bin/libsakUtils.a  CMakeFiles/sakUtils.dir/src/ard_reader.cpp.o CMakeFiles/sakUtils.dir/src/log.cpp.o
+/bin/ranlib ../../bin/libsakUtils.a

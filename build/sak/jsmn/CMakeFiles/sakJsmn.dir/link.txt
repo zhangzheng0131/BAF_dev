@@ -1,0 +1,2 @@
+/bin/ar cr ../../bin/libsakJsmn.a  CMakeFiles/sakJsmn.dir/src/jsmn.c.o
+/bin/ranlib ../../bin/libsakJsmn.a

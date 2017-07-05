@@ -1,0 +1,2 @@
+/bin/ar cr ../../bin/libsakImgProc.a  CMakeFiles/sakImgProc.dir/src/cimage.cpp.o CMakeFiles/sakImgProc.dir/src/fea_icf.cpp.o CMakeFiles/sakImgProc.dir/src/image.cpp.o CMakeFiles/sakImgProc.dir/src/img_convert.cpp.o CMakeFiles/sakImgProc.dir/src/img_resize.cpp.o CMakeFiles/sakImgProc.dir/src/integral.cpp.o
+/bin/ranlib ../../bin/libsakImgProc.a
