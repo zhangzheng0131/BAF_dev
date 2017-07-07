@@ -45,12 +45,12 @@ Rect_T getRectFromRotatedBB(std::vector<std::string> &eles)
 
     float cx = (ox1+ox2+ix1+ix2)/4.f;
     float cy = (oy1+oy2+iy1+iy2)/4.f;
-
+    
     float x1 = MIN_T(MIN_T(MIN_T(ox1, ox2), ix1), ix2);
     float x2 = MAX_T(MAX_T(MAX_T(ox1, ox2), ix1), ix2);
     float y1 = MIN_T(MIN_T(MIN_T(oy1, oy2), iy1), iy2);
     float y2 = MAX_T(MAX_T(MAX_T(oy1, oy2), iy1), iy2);
-
+    
     float A1 = sqrt((ox1-ox2)*(ox1-ox2)+(oy1-oy2)*(oy1-oy2))*sqrt((ix1-ox2)*(ix1-ox2)+(iy1-oy2)*(iy1-oy2));
     float A2 = (x2 - x1) * (y2 - y1);
     float s = sqrt(A1/A2);
@@ -80,18 +80,18 @@ int main(int argc, char* argv[]){
     }
     argv += getpos_t();
     argc -= getpos_t();
-
+    
 	if (argc<1)
         return usage();
     cv::VideoWriter outputV;
     Image_T img;
     memset(&img, 0, sizeof(Image_T));
     OTHandle handle = ot_create(640, 480, 10, method);
-
+    
     std::ifstream fileList(argv[0]);
     if (!fileList.is_open())
         return -1;
-
+    
     std::string line, name;
     cv::Mat frame;
     double beg, end, total_time=0;
@@ -181,7 +181,6 @@ int main(int argc, char* argv[]){
 		end = timeStamp();
 		char str[50] = { 0 };
 		double useTime = (end - beg) / 1000;
-    isVisual= true;
 		if (isVisual)
 		{
 			sprintf(str, "Time: %0.2f ms", useTime);

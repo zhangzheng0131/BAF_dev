@@ -53,12 +53,12 @@ Rect_T getRectFromRotatedBB(std::vector<std::string> &eles)
 
     float cx = (ox1+ox2+ix1+ix2)/4.f;
     float cy = (oy1+oy2+iy1+iy2)/4.f;
-
+    
     float x1 = MIN_T(MIN_T(MIN_T(ox1, ox2), ix1), ix2);
     float x2 = MAX_T(MAX_T(MAX_T(ox1, ox2), ix1), ix2);
     float y1 = MIN_T(MIN_T(MIN_T(oy1, oy2), iy1), iy2);
     float y2 = MAX_T(MAX_T(MAX_T(oy1, oy2), iy1), iy2);
-
+    
     float A1 = sqrt((ox1-ox2)*(ox1-ox2)+(oy1-oy2)*(oy1-oy2))*sqrt((ix1-ox2)*(ix1-ox2)+(iy1-oy2)*(iy1-oy2));
     float A2 = (x2 - x1) * (y2 - y1);
     float s = sqrt(A1/A2);
@@ -92,18 +92,18 @@ int main(int argc, char* argv[]){
     }
     argv += getpos_t();
     argc -= getpos_t();
-
+    
 	if (argc<1)
         return usage();
     cv::VideoWriter outputV;
     Image_T img;
     memset(&img, 0, sizeof(Image_T));
     OTHandle handle = ot_create(640, 480, 10, method);
-
+    
     std::ifstream fileList(argv[0]);
     if (!fileList.is_open())
         return -1;
-
+    
     std::string line, name;
     cv::Mat frame;
 
@@ -153,7 +153,7 @@ int main(int argc, char* argv[]){
             }
         }
 
-        beg = timeStamp();
+        beg = timeStamp();   
         img.format = IMG_FMT_BGRBGR;
         img.pitch[0] = frame.cols*3;
         img.width = frame.cols;
@@ -197,7 +197,7 @@ int main(int argc, char* argv[]){
             }
         }
 
-        isSave=true;
+     //   isSave=true;
         if (isSave)
             outputV << frame;
         // Show the FPS
@@ -205,10 +205,10 @@ int main(int argc, char* argv[]){
         isSave=false;
         char str[50]={0};
         sprintf(str,"Time: %0.2f ms", (end-beg)/1000);
-        cv::putText(frame, str, cv::Point(20,30),
+        cv::putText(frame, str, cv::Point(20,30), 
                     cv::FONT_HERSHEY_SIMPLEX, 1,
                     cv::Scalar(255,0,0), 2, 8);
-
+        
         cv::imshow( "Tracker", frame);
         char c = (char)cv::waitKey(1);
         if(27==c || 'q'==c)

@@ -103,8 +103,8 @@ int main(int argc, char* argv[]){
     }
     argv += getpos_t();
     argc -= getpos_t();
-
-	if (0==argc)
+    
+	if (0==argc) 
         g_cap.open(0);
     else
         g_cap.open(argv[0]);
@@ -122,10 +122,10 @@ int main(int argc, char* argv[]){
         fprintf(stderr, "Create handle failed\n");
         return -1;
     }
-
+    
     cv::Mat frame, show;
     cv::namedWindow("Tracker", 0 );
-    cv::setMouseCallback("Tracker", onMouse, &show);
+    cv::setMouseCallback("Tracker", onMouse, &show);    
     bool paused = false;
     double beg, end;
     while (true)
@@ -135,7 +135,7 @@ int main(int argc, char* argv[]){
             if (0!= nextFrame(frame))
                 break;
         }
-        frame.copyTo(show);
+        frame.copyTo(show);   
         if (isSave && (!outputV.isOpened()))
         {
             char path[1024] = {0};
@@ -151,8 +151,8 @@ int main(int argc, char* argv[]){
                 return -1;
             }
         }
-
-        //Do Tracking
+        
+        //Do Tracking        
         beg = timeStamp();
         img.format = IMG_FMT_BGRBGR;
         img.pitch[0] = frame.cols*3;
@@ -160,9 +160,8 @@ int main(int argc, char* argv[]){
         img.height = frame.rows;
         img.nPlane = 1;
         img.data[0] = (unsigned char *)frame.data;
-
-        float rate;
-        ot_setImage(handle, &img, rate);
+        float rate2;
+        ot_setImage(handle, &img,rate2);
         if (isNewObj)
         {
             Rect_T roi = {newObj.x, newObj.y,
@@ -186,20 +185,20 @@ int main(int argc, char* argv[]){
                               cv::Scalar(0, 0 , 255),2,8);
             }
         }
-
+            
         // Show the FPS
         end = timeStamp();
         char str[50]={0};
         sprintf(str,"Time: %0.2f ms", (end-beg)/1000);
         if (!isSave)
-        cv::putText(show, str, cv::Point(20,30),
+        cv::putText(show, str, cv::Point(20,30), 
                     cv::FONT_HERSHEY_SIMPLEX, 1,
                     cv::Scalar(255,0,0), 2, 8);
 
         if (isSave && !paused)
             outputV << show;
         //End Tracking
-        if (isSelecting || isNewObj)
+        if (isSelecting || isNewObj)            
             cv::rectangle(show,newObj,cv::Scalar(255,0,0));
         cv::imshow( "Tracker", show);
         char c = (char)cv::waitKey(10);

@@ -45,12 +45,12 @@ Rect_T getRectFromRotatedBB(std::vector<std::string> &eles)
 
     float cx = (ox1+ox2+ix1+ix2)/4.f;
     float cy = (oy1+oy2+iy1+iy2)/4.f;
-
+    
     float x1 = MIN_T(MIN_T(MIN_T(ox1, ox2), ix1), ix2);
     float x2 = MAX_T(MAX_T(MAX_T(ox1, ox2), ix1), ix2);
     float y1 = MIN_T(MIN_T(MIN_T(oy1, oy2), iy1), iy2);
     float y2 = MAX_T(MAX_T(MAX_T(oy1, oy2), iy1), iy2);
-
+    
     float A1 = sqrt((ox1-ox2)*(ox1-ox2)+(oy1-oy2)*(oy1-oy2))*sqrt((ix1-ox2)*(ix1-ox2)+(iy1-oy2)*(iy1-oy2));
     float A2 = (x2 - x1) * (y2 - y1);
     float s = sqrt(A1/A2);
@@ -68,14 +68,14 @@ int process(int method, char *ground_path,
     Image_T img;
     memset(&img, 0, sizeof(Image_T));
     OTHandle handle = ot_create(640, 480, 10, method);
-
+    
     std::string path=ground_path;
     std::string base_dir = path.substr(0,path.find_last_of("/\\"));
     std::string vName = base_dir.substr(base_dir.find_last_of("/\\")+1, base_dir.size());
     std::ifstream fileList(path.c_str());
     if (!fileList.is_open())
         return -1;
-
+    
     std::string line;
     cv::Mat frame;
     double beg, end, total_time=0;
@@ -122,7 +122,7 @@ int process(int method, char *ground_path,
         img.nPlane = 1;
         img.data[0] = (unsigned char *)frame.data;
         float rate;
-        ot_setImage(handle, &img, rate);
+        ot_setImage(handle, &img,rate);
 
         Rect_T ground_roi;
         if (4==eles.size())
@@ -169,10 +169,10 @@ int process(int method, char *ground_path,
 
         char str[50]={0};
         sprintf(str,"Time: %0.2f ms", (end-beg)/1000);
-        cv::putText(frame, str, cv::Point(20,30),
+        cv::putText(frame, str, cv::Point(20,30), 
                     cv::FONT_HERSHEY_SIMPLEX, 1,
                     cv::Scalar(255,0,0), 2, 8);
-
+        
         cv::imshow( "Tracker", frame);
         char c = (char)cv::waitKey(10);
         if(27==c || 'q'==c)
@@ -208,7 +208,7 @@ int main(int argc, char* argv[]){
     }
     argv += getpos_t();
     argc -= getpos_t();
-
+    
 	if (argc<1)
         return usage();
 

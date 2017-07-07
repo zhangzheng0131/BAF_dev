@@ -54,13 +54,13 @@ int main(int argc, char* argv[]){
     img.height = frame.rows;
     img.nPlane = 1;
     img.data[0] = (unsigned char *)frame.data;
-    float rate;
-    ot_setImage(handle, &img, rate);
+    float rate1;
+    ot_setImage(handle, &img,rate1);
 
     Rect_T roi_t = {initRoi.x, initRoi.y,
                     initRoi.width, initRoi.height};
     ot_addObject(handle, &roi_t, 0);
-
+    
     while (!vot.end()) {
 
         std::string imagepath = vot.frame();
@@ -74,11 +74,12 @@ int main(int argc, char* argv[]){
         img.height = frame.rows;
         img.nPlane = 1;
         img.data[0] = (unsigned char *)frame.data;
-      ot_setImage(handle, &img, rate);
+        float rate;
+        ot_setImage(handle, &img,rate);
 
         int count = ot_update(handle);
         Rect_T roi;
-        if (count > 0)
+        if (count > 0) 
             ot_object(handle, 0, &roi, 0, 0, 0);
         else
         {
